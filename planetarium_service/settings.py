@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_filters",
     "debug_toolbar",
+    "rest_framework_simplejwt",
 
     "planetarium",
     "accounts",
@@ -136,6 +137,9 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
     "TITLE": "Your Project API",
     "DESCRIPTION": "Your project description",
     "VERSION": "1.0.0",
