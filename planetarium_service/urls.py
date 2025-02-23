@@ -33,7 +33,7 @@ urlpatterns = [
         admin.site.urls
     ),
     path(
-        "api/planetarium",
+        "api/planetarium/",
         include("planetarium.urls"),
         name="planetarium"
     ),

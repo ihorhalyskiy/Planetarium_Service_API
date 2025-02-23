@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 
 from planetarium.models import (
     ShowTheme,
@@ -61,12 +61,14 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        if self.action in [
-            "list",
-            "retrieve"
-        ]:
+        if self.action == "list":
             return queryset.prefetch_related(
                 "astronomy_show",
+                "planetarium_dome"
+            )
+        if self.action == "retrieve":
+            return queryset.prefetch_related(
+                "astronomy_show__show_theme",
                 "planetarium_dome"
             )
 
@@ -95,19 +97,22 @@ class ReservationViewSet(viewsets.ModelViewSet):
             serializer.save(user=self.request.user)
 
 
-class TicketViewSet(viewsets.ModelViewSet):
+class TicketViewSet(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin
+):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
 
     def get_queryset(self):
         queryset = self.queryset
-        if self.action in [
-            "list",
-            "retrieve"
-        ]:
-            return queryset.prefetch_related(
+        if self.action == "list":
+            return queryset.select_related(
                 "show_session",
-                "reservation"
+                "show_session__astronomy_show",
+                "reservation",
+                "reservation__user",
             )
 
     def get_serializer_class(self):

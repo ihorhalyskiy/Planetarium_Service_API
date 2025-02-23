@@ -91,4 +91,8 @@ class Ticket(models.Model):
         ]
 
     def __str__(self):
-        return f"Ticket: row {self.row}, seat {self.seat}, session {self.show_session.id}"
+        return (
+            f"Ticket {self.id}: {self.show_session.astronomy_show.title}, "
+            f"{self.show_session.planetarium_dome.name}, "
+            f"row {self.row}, seat {self.seat}"
+        )
