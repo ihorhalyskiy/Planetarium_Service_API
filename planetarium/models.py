@@ -6,7 +6,6 @@ from django.conf import settings
 class ShowTheme(models.Model):
     name = models.CharField(max_length=127)
 
-
     def __str__(self):
         return self.name
 
