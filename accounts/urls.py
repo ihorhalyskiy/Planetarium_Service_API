@@ -12,11 +12,11 @@ from accounts.views import CreateUserView
 app_name = "accounts"
 
 urlpatterns = [
-    path(
-        "register/",
-        CreateUserView.as_view(),
-        name="create"
-    ),
+        path(
+            "register/",
+            CreateUserView.as_view(),
+            name="create"
+        ),
     path(
         "token/",
         TokenObtainPairView.as_view(),
