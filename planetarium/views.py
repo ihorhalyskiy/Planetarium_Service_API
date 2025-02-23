@@ -1,6 +1,5 @@
 from rest_framework import viewsets
 
-
 from planetarium.models import (
     ShowTheme,
     AstronomyShow,
@@ -48,4 +47,3 @@ class ReservationViewSet(viewsets.ModelViewSet):
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-
