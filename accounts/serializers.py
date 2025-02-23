@@ -39,7 +39,6 @@ class UserSerializer(serializers.ModelSerializer):
             },
         }
 
-
         def create (self, validated_data):
             """
             Створює та повертає новий екземпляр User.

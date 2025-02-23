@@ -6,11 +6,7 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 from django.utils.translation import gettext_lazy as _
 
-
 admin.site.register(User)
-
-
-
 
 
 @admin.register(User)
