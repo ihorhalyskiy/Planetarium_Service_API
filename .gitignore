@@ -4,3 +4,4 @@ venv
 db.sqlite3
 __pycache__
 /.flake8
+/initial_data.json
