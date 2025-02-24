@@ -9,8 +9,6 @@ from rest_framework_simplejwt.views import (
 )
 
 
-
-
 app_name = "accounts"
 
 urlpatterns = [

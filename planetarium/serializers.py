@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from rest_framework.validators import UniqueTogetherValidator
@@ -45,6 +46,7 @@ class AstronomyShowRetrieveSerializer(AstronomyShowSerializer):
 
 
 class PlanetariumDomeSerializer(serializers.ModelSerializer):
+    capacity = serializers.SerializerMethodField()
     class Meta:
         model = PlanetariumDome
         fields = [
@@ -54,6 +56,10 @@ class PlanetariumDomeSerializer(serializers.ModelSerializer):
             "seats_in_row",
             "capacity"
         ]
+
+    @extend_schema_field(serializers.IntegerField)
+    def get_capacity(obj):
+        return obj.rows * obj.seats_in_row
 
 
 class ShowSessionSerializer(serializers.ModelSerializer):
