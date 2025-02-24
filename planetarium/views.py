@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework import viewsets, filters
 
 from planetarium.models import (
@@ -115,9 +117,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         if self.action == "list":
             return queryset.select_related(
-                "show_session",
                 "show_session__astronomy_show",
-                "reservation",
                 "reservation__user",
             )
 
@@ -127,3 +127,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         if self.action == "retrieve":
             return TickerRetrieveSerializer
         return TicketSerializer
+
+    @method_decorator(cache_page(60 * 5, key_prefix="ticket_view"))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
