@@ -1,4 +1,7 @@
+from django.utils import timezone
+
 from rest_framework import filters, viewsets
+from rest_framework.exceptions import ValidationError
 
 from planetarium.models import (
     AstronomyShow,
@@ -8,6 +11,11 @@ from planetarium.models import (
     ShowTheme,
     Ticket,
 )
+from planetarium.permissions import (
+    IsAdminAllORIsAuthenticatedOrReadOnly,
+    IsOwnerOrAdmin
+)
+
 from planetarium.serializers import (
     AstronomyShowListSerializer,
     AstronomyShowRetrieveSerializer,
@@ -86,6 +94,10 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
+    permission_classes = [
+        IsAdminAllORIsAuthenticatedOrReadOnly,
+        IsOwnerOrAdmin
+    ]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     filter_backends = [filters.SearchFilter]
@@ -103,8 +115,21 @@ class ReservationViewSet(viewsets.ModelViewSet):
         if self.request.user:
             serializer.save(user=self.request.user)
 
+    def perform_destroy(self, instance):
+        for ticket in instance.tickets.all():
+            time_diff = ticket.show_session.show_time - timezone.now()
+            if time_diff.total_seconds() < 5 * 3600:
+                raise ValidationError(
+                    "Can't delete reservation less than 5 hours before session."
+                )
+        instance.delete()
+
 
 class TicketViewSet(viewsets.ModelViewSet):
+    permission_classes = [
+        IsAdminAllORIsAuthenticatedOrReadOnly,
+        IsOwnerOrAdmin
+    ]
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     filter_backends = [filters.SearchFilter]
@@ -116,14 +141,14 @@ class TicketViewSet(viewsets.ModelViewSet):
     ]
 
     @staticmethod
-    def _params_to_ints(self, query_string):
+    def _params_to_ints(query_string):
         return [int(str_id) for str_id in query_string.split(",")]
 
     def get_queryset(self):
         queryset = self.queryset
 
-        title = self.request.query_params.get("title")
-        email = self.request.query_params.get("email")
+        title = self.request.GET.get("title")
+        email = self.request.GET.get("email")
 
         if title:
             queryset = queryset.filter(
