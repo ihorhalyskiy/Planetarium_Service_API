@@ -113,6 +113,25 @@ class TicketSerializer(serializers.ModelSerializer):
             "reservation"
         ]
 
+    def validate(self, data):
+        row = data.get("row")
+        seat = data.get("seat")
+        show_session = data.get("show_session")
+        dome = show_session.planetarium_dome
+        if not (0 < row < dome.rows):
+            raise serializers.ValidationError(
+                {"row": f"Row {row} is out of range."}
+            )
+        if not (0 < seat < dome.seats_in_row):
+            raise serializers.ValidationError(
+                {"seat": f"Seat {seat} is out of range."}
+            )
+        if Ticket.objects.filter(row=row, seat=seat).exists():
+            raise serializers.ValidationError(
+                {"seat": f"Seat {seat} is already taken."}
+            )
+        return data
+
 
 class TicketListSerializer(serializers.ModelSerializer):
     user = serializers.CharField(

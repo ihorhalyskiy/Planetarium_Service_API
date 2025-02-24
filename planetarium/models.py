@@ -62,7 +62,7 @@ class Reservation(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user.username} - (created: {self.created_at})"
+        return f"{self.user.email} - (created: {self.created_at})"
 
 
 class Ticket(models.Model):

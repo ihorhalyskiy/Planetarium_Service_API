@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, filters
 
 from planetarium.models import (
     ShowTheme,
@@ -33,6 +33,8 @@ class ShowThemeViewSet(viewsets.ModelViewSet):
 class AstronomyShowViewSet(viewsets.ModelViewSet):
     queryset = AstronomyShow.objects.all()
     serializer_class = AstronomyShowSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["title", "description"]
 
     def get_queryset(self):
         queryset = self.queryset
@@ -83,6 +85,8 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
 class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["user__email"]
 
     def get_queryset(self):
         queryset = self.queryset
@@ -96,14 +100,16 @@ class ReservationViewSet(viewsets.ModelViewSet):
         if self.request.user:
             serializer.save(user=self.request.user)
 
-
-class TicketViewSet(
-    viewsets.GenericViewSet,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin
-):
+class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+        "row",
+        "seat",
+        "reservation__user__email",
+        "show_session__astronomy_show__title"
+    ]
 
     def get_queryset(self):
         queryset = self.queryset
