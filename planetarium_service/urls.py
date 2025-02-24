@@ -39,7 +39,7 @@ urlpatterns = [
         include("accounts.urls"),
         name="accounts"
     ),
-                #  Swaggers
+    # Swagger/Redoc
     path(
         "api/schema/",
         SpectacularAPIView.as_view(),
@@ -55,7 +55,8 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc"
     ),
-    path("__debug__/",
-         include("debug_toolbar.urls")
+    path(
+        "__debug__/",
+        include("debug_toolbar.urls")
     ),
 ]

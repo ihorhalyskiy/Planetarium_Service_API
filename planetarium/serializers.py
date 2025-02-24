@@ -47,6 +47,7 @@ class AstronomyShowRetrieveSerializer(AstronomyShowSerializer):
 
 class PlanetariumDomeSerializer(serializers.ModelSerializer):
     capacity = serializers.SerializerMethodField()
+
     class Meta:
         model = PlanetariumDome
         fields = [
@@ -135,9 +136,13 @@ class TicketSerializer(serializers.ModelSerializer):
         show_session = data.get("show_session")
         dome = show_session.planetarium_dome
         if not (0 < row < dome.rows):
-            raise serializers.ValidationError({"row": f"Row {row} is out of range."})
+            raise serializers.ValidationError(
+                {"row": f"Row {row} is out of range."}
+            )
         if not (0 < seat < dome.seats_in_row):
-            raise serializers.ValidationError({"seat": f"Seat {seat} is out of range."})
+            raise serializers.ValidationError(
+                {"seat": f"Seat {seat} is out of range."}
+            )
         if Ticket.objects.filter(row=row, seat=seat).exists():
             raise serializers.ValidationError(
                 {"seat": f"Seat {seat} is already taken."}
