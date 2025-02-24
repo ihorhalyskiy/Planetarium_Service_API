@@ -23,6 +23,11 @@ class ShowThemeSerializer(serializers.ModelSerializer):
 
 
 class AstronomyShowSerializer(serializers.ModelSerializer):
+    show_theme = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=ShowTheme.objects.all()
+    )
+
     class Meta:
         model = AstronomyShow
         fields = [
@@ -58,8 +63,8 @@ class PlanetariumDomeSerializer(serializers.ModelSerializer):
             "capacity"
         ]
 
-    @extend_schema_field(serializers.IntegerField)
-    def get_capacity(obj):
+    @extend_schema_field(serializers.IntegerField())
+    def get_capacity(self, obj: PlanetariumDome) -> int:
         return obj.rows * obj.seats_in_row
 
 
