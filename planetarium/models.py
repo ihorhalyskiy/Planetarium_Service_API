@@ -1,6 +1,6 @@
-from django.db import models
-
 from django.conf import settings
+
+from django.db import models
 
 
 class ShowTheme(models.Model):
@@ -80,15 +80,21 @@ class Ticket(models.Model):
     )
 
     class Meta:
-        unique_together = (
-            "row",
-            "seat",
-            "show_session"
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "row",
+                    "seat",
+                    "show_session"
+                ],
+                name="unique_row_seat_show_session",
+            )
+        ]
         ordering = [
             "row",
             "seat"
         ]
+
 
     def __str__(self):
         return (

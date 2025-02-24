@@ -156,14 +156,14 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.UserRateThrottle",
     ),
     "DEFAULT_THROTTLE_RATES": {
-        "anon": "50/day",
+        "anon": "31/day",
         "user": "365/day"
     },
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_PERMISSION_CLASSES": (
         "planetarium.permissions.IsAdminAllORIsAuthenticatedOrReadOnly",
-    )
+    ),
 }
 
 SIMPLE_JWT = {
@@ -187,11 +187,11 @@ SPECTACULAR_SETTINGS = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
+        "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
-    }
+    },
 }
 
 INTERNAL_IPS = [
