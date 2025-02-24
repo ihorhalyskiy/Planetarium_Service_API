@@ -6,6 +6,8 @@ from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 
+from base.models import UUIDBaseModel
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -52,7 +54,7 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class User(AbstractUser):
+class User(UUIDBaseModel,AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
 
