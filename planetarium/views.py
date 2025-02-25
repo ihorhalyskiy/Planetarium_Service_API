@@ -123,7 +123,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
             time_diff = ticket.show_session.show_time - timezone.now()
             if time_diff.total_seconds() < 5 * 3600:
                 raise ValidationError(
-                    "Cannot delete reservation within 5h of session."
+                    "Impossible delete a reservation 5 hours before the show."
                 )
         instance.delete()
 
