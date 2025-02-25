@@ -38,12 +38,12 @@ It’s built using **Django** and **Django REST Framework** to provide a robust 
 - **Permissions**: Custom permission classes for fine-grained access control.
 
 ---
-📖 API Documentation
-The project provides interactive API documentation using drf-spectacular:
+## 📖 API Documentation
+ ### The project provides interactive API documentation using drf-spectacular:
 
-Swagger: http://localhost:8000/api/schema/swagger/
+- Swagger: http://localhost:8000/api/schema/swagger/
 
-Redoc: http://localhost:8000/api/schema/redoc/
+- Redoc: http://localhost:8000/api/schema/redoc/
 
 ## 🚀 Getting Started
 
@@ -85,43 +85,43 @@ Redoc: http://localhost:8000/api/schema/redoc/
    python manage.py runserver
 
 
-📚 Models Overview
-User Model
-Email-based authentication 📧
+## 📚 Models Overview
 
-Astronomy Show
-Title, Description, and Show Themes 🌠
+- **User Model** 📧
+  - Email-based authentication.
 
-Planetarium Dome
-Name, Rows, Seats per Row, and Capacity 🏛️
+- **Astronomy Show** 🌠
+  - Title, description, and show themes.
 
-Reservation
-Created by a User with a list of Tickets 🎟️
+- **Planetarium Dome** 🏛️
+  - Name, rows, seats per row, and capacity.
 
+---
 
+## 🔒 Permissions
 
-🔒 Permissions
-IsAdminOrReadOnly: Only admins can modify data, but anyone can read.
+- **IsAdminOrReadOnly** 🔐
+  - Only admins can modify data, but anyone can read.
 
-IsOwnerOrAdmin: Users can only modify their own reservations/tickets, or admins can modify any.
+- **IsOwnerOrAdmin** 🔐
+  - Users can only modify their own reservations/tickets, or admins can modify any.
 
+---
 
+## 🌟 Example Use Cases
 
-🌟 Example Use Cases
-Create a New Astronomy Show
-Add a show with themes like "Black Holes" or "Galaxies".
+- **Create a New Astronomy Show** 🌠
+  - Add a show with themes like "Black Holes" or "Galaxies".
 
-Schedule a Show Session
-Assign the show to a planetarium dome at a specific time.
+- **Schedule a Show Session** 🎥
+  - Assign the show to a planetarium dome at a specific time.
 
-Book Tickets
-Users can reserve seats for a show session.
+- **Manage Reservations** 📋
+  - Admins can view all reservations, while users can only view their own.
 
-Manage Reservations
-Admins can view all reservations, while users can only view their own.
+- **Reservation Deletion** ⚠️
+  - Reservations cannot be canceled 5 hours before the show.
 
-Reservation Deletion
-Reservations cannot be canceled 5 hours before the show.
+---
 
-🌠 Enjoy Exploring the Cosmos! 🌠
-Feel free to contribute, report issues, or suggest new features! 🚀
+## 🌠 Enjoy Exploring the Cosmos! 🌠
