@@ -1,9 +1,8 @@
-from rest_framework import routers
-
 from django.urls import (
     path,
     include
 )
+from rest_framework import routers
 
 from planetarium.views import (
     ShowThemeViewSet,

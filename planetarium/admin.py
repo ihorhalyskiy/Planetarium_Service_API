@@ -9,7 +9,6 @@ from planetarium.models import (
     Ticket,
 )
 
-
 admin.site.register(ShowTheme)
 admin.site.register(AstronomyShow)
 admin.site.register(PlanetariumDome)

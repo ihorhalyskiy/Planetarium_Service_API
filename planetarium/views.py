@@ -1,7 +1,7 @@
 from django.utils import timezone
-
 from rest_framework import filters, viewsets
 from rest_framework.exceptions import ValidationError
+from rest_framework.pagination import PageNumberPagination
 
 from planetarium.models import (
     AstronomyShow,
@@ -15,7 +15,6 @@ from planetarium.permissions import (
     IsAdminAllORIsAuthenticatedOrReadOnly,
     IsOwnerOrAdmin
 )
-
 from planetarium.serializers import (
     AstronomyShowListSerializer,
     AstronomyShowRetrieveSerializer,
@@ -70,6 +69,7 @@ class PlanetariumDomeViewSet(viewsets.ModelViewSet):
 class ShowSessionViewSet(viewsets.ModelViewSet):
     queryset = ShowSession.objects.all()
     serializer_class = ShowSessionSerializer
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         queryset = self.queryset
@@ -133,6 +133,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
     filter_backends = [filters.SearchFilter]
+    pagination_class = PageNumberPagination
     search_fields = [
         "row",
         "seat",
