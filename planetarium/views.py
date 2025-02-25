@@ -40,7 +40,10 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
     queryset = AstronomyShow.objects.all()
     serializer_class = AstronomyShowSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ["title", "description"]
+    search_fields = [
+        "title",
+        "description"
+    ]
 
     def get_queryset(self):
         queryset = self.queryset

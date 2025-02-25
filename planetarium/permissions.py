@@ -3,7 +3,11 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission
 
 
 class IsAdminAllORIsAuthenticatedOrReadOnly(BasePermission):
-    def has_permission(self, request, view):
+    def has_permission(
+            self,
+            request,
+            view
+    ):
         return bool(
             request.method in SAFE_METHODS
             and request.user
@@ -12,7 +16,12 @@ class IsAdminAllORIsAuthenticatedOrReadOnly(BasePermission):
 
 
 class IsOwnerOrAdmin(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
+    def has_object_permission(
+            self,
+            request,
+            view,
+            obj
+    ):
         if hasattr(obj, "user"):
             return obj.user == request.user or request.user.is_staff
         elif hasattr(obj, "reservation"):

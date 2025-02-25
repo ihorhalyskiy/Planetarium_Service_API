@@ -176,7 +176,11 @@ class TicketListSerializer(serializers.ModelSerializer):
         validators = [
             UniqueTogetherValidator(
                 queryset=Ticket.objects.all(),
-                fields=["row", "seat", "show_session"],
+                fields=[
+                    "row",
+                    "seat",
+                    "show_session"
+                ],
                 message="This seat is already taken.",
             )
         ]
