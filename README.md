@@ -1,4 +1,4 @@
-# 🌌 Planetarium Management System 🌌
+# 🌌 Planetarium Service System 🌌
 
 Welcome to the **Planetarium Service Api**! 
 🚀 This project is designed to manage astronomy shows, planetarium domes, show sessions, reservations, and tickets. 
@@ -38,12 +38,12 @@ It’s built using **Django** and **Django REST Framework** to provide a robust 
 - **Permissions**: Custom permission classes for fine-grained access control.
 
 ---
-📖API Documentation
+📖 API Documentation
 The project provides interactive API documentation using drf-spectacular:
 
 Swagger: http://localhost:8000/api/schema/swagger/
-Redoc: http://localhost:8000/api/schema/redoc/
 
+Redoc: http://localhost:8000/api/schema/redoc/
 
 ## 🚀 Getting Started
 
@@ -98,28 +98,30 @@ Name, Rows, Seats per Row, and Capacity 🏛️
 Reservation
 Created by a User with a list of Tickets 🎟️
 
+
+
 🔒 Permissions
 IsAdminOrReadOnly: Only admins can modify data, but anyone can read.
 
 IsOwnerOrAdmin: Users can only modify their own reservations/tickets, or admins can modify any.
 
-🌟 Example Use Cases
-Create a New Astronomy Show:
 
+
+🌟 Example Use Cases
+Create a New Astronomy Show
 Add a show with themes like "Black Holes" or "Galaxies".
 
-Schedule a Show Session:
-
+Schedule a Show Session
 Assign the show to a planetarium dome at a specific time.
 
-Book Tickets:
-
+Book Tickets
 Users can reserve seats for a show session.
 
-Manage Reservations:
-
+Manage Reservations
 Admins can view all reservations, while users can only view their own.
 
-Reservation Deletion: Reservations cannot be canceled 5 hours before the show.
+Reservation Deletion
+Reservations cannot be canceled 5 hours before the show.
 
 🌠 Enjoy Exploring the Cosmos! 🌠
+Feel free to contribute, report issues, or suggest new features! 🚀
