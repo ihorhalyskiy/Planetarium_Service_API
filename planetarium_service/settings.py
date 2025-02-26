@@ -95,14 +95,17 @@ WSGI_APPLICATION = "planetarium_service.wsgi.application"
 
 DATABASES = {
     "default": {
+        #"ENGINE": "django.db.backends.sqlite3",
+        #"NAME": BASE_DIR / "db.sqlite3",
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("POSTGRES_DB", "planetarium_db"),
-        "USER": os.getenv("POSTGRES_USER", "theatre_user"),
+        "USER": os.getenv("POSTGRES_USER", "planetarium_user"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "yourpassword"),
         "HOST": os.getenv("POSTGRES_HOST", "db"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
+
 
 
 # Password validation
@@ -158,8 +161,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": (
-        "django_filters.rest_framework."
-        "DjangoFilterBackend",
+        "django_filters.rest_framework.DjangoFilterBackend",
     ),
     "DEFAULT_THROTTLE_CLASSES": (
         "rest_framework.throttling.AnonRateThrottle",
@@ -169,9 +171,7 @@ REST_FRAMEWORK = {
         "anon": "31/day",
         "user": "365/day"
     },
-    "DEFAULT_PAGINATION_CLASS": (
-        "rest_framework.pagination.PageNumberPagination",
-    ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_PERMISSION_CLASSES": (
         "planetarium.permissions.IsAdminAllORIsAuthenticatedOrReadOnly",
