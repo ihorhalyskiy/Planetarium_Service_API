@@ -7,3 +7,4 @@ __pycache__
 /initial_data.json
 .env
 /dump.json
+/planetarium.json
