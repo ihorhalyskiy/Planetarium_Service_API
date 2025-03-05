@@ -46,14 +46,9 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self):
-        queryset = self.queryset
-        if self.action in [
-            "list",
-            "retrieve"
-        ]:
-            return queryset.prefetch_related(
-                "show_theme"
-            )
+        queryset = super().get_queryset()
+        if self.action in ["list", "retrieve"]:
+            return queryset.prefetch_related("show_theme")
         return queryset
 
     def get_serializer_class(self):
@@ -61,7 +56,7 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
             return AstronomyShowListSerializer
         if self.action == "retrieve":
             return AstronomyShowRetrieveSerializer
-        return AstronomyShowSerializer
+        return super().get_serializer_class()
 
 
 class PlanetariumDomeViewSet(viewsets.ModelViewSet):
